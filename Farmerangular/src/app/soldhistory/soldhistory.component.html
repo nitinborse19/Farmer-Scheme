@@ -1,0 +1,24 @@
+<h1>View Sold History</h1>
+<hr/>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Crop Name</th>
+            <th>MSP</th>
+            <th>Sold Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let s of SoldHistoryinfo">
+        <tr>
+            <td>{{s.date}}</td>
+            <td>{{s.cropName}}</td>
+            <td>{{s.msp}}</td>
+            <td>{{s.soldPrice}}</td>
+            <td>{{s.totalPrice}}</td>
+        </tr>
+
+    </tbody>
+</table>
+

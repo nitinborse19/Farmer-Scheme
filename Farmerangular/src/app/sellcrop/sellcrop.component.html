@@ -1,0 +1,103 @@
+<!-- 
+<div>
+  <form action="">
+    <div>
+      CropType: <select name="cropt" id="" [(ngModel)]="SellCrops.CropType">
+        <option value="101">select option</option>
+        <option value="Kharip">Kharip</option>
+        <option value="Rabi">Rabi</option>
+      </select> <br/> <br/>
+    </div>
+    <div>
+      CropName: <input type="text" name="cname" [(ngModel)]="SellCrops.CropName"> <br/> <br/>
+    </div>
+    <div>
+      FertilizerType: <input type="text" name="ftype" [(ngModel)]="SellCrops.FertilizerType"> <br/> <br/>
+    </div>
+    <div>
+      Quantity: <input type="number" name="quant" [(ngModel)]="SellCrops.Quantity"> <br/> <br/>
+    </div>
+    <div>
+      SoilPHCertificate: <input type="file"> <br/> <br/>
+    </div>
+    <div>
+      <button class="btn btn-success" (click)="addCategory()">Place Request</button>
+    </div>
+  </form>
+</div>
+<hr/>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>CropName</th>
+        <th>CropType</th>
+        <th>FertilizerType</th>
+        <th>Quntity</th>
+       
+      </tr>
+    </thead>
+    <tbody *ngFor="let c of sellcropinfo">
+      <tr>
+        
+        <td>{{c.cropName}}</td>
+        <td>{{c.cropType}}</td>
+        <td>{{c.fertilizerType}}</td>
+        <td>{{c.quantity}}</td>
+        <td><button class="btn btn-danger" (click)="removeCategory(c.CropId)">Delete</button></td>
+        <td><button class="btn btn-success" (click)="editCategory(c.CropId)">Edit</button></td>
+       
+      </tr>
+    </tbody>
+  </table> -->
+
+  
+<div>
+  <form action="">
+    <div>
+      CropType: <select name="cropt" id="" [(ngModel)]="SellCrops.CropType">
+        <option value="101">select option</option>
+        <option value="Kharip">Kharip</option>
+        <option value="Rabi">Rabi</option>
+      </select> <br/> <br/>
+    </div>
+    <div>
+      CropName: <input type="text" name="cname" [(ngModel)]="SellCrops.CropName"> <br/> <br/>
+    </div>
+    <div>
+      FertilizerType: <input type="text" name="ftype" [(ngModel)]="SellCrops.FertilizerType"> <br/> <br/>
+    </div>
+    <div>
+      Quantity: <input type="number" name="quant" [(ngModel)]="SellCrops.Quantity"> <br/> <br/>
+    </div>
+    <div>
+      SoilPHCertificate: <input type="file"> <br/> <br/>
+    </div>
+    <div>
+      <button class="btn btn-success" (click)="addCategory()">Place Request</button>
+    </div>
+  </form>
+</div>
+<hr/>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>CropName</th>
+        <th>CropType</th>
+        <th>FertilizerType</th>
+        <th>Quntity</th>
+       
+      </tr>
+    </thead>
+    <tbody *ngFor="let c of sellcropinfo">
+      <tr>
+        
+        <td>{{c.cropName}}</td>
+        <td>{{c.cropType}}</td>
+        <td>{{c.fertilizerType}}</td>
+        <td>{{c.quantity}}</td>
+        <td><button class="btn btn-danger" (click)="removeCategory(c.CropId)">Delete</button></td>
+        <td><button class="btn btn-success" (click)="editCategory(c.CropId)">Edit</button></td>
+       
+      </tr>
+    </tbody>
+  </table>
