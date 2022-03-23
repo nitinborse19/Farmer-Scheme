@@ -1,0 +1,197 @@
+
+
+use Dbfarmer
+CREATE TABLE Roletable (
+	UserID integer identity(1,1)NOT NULL primary key ,
+	RoleType varchar(20) NOT NULL,
+	ApprovedStatus varchar(10) NOT NULL,
+	EmailID varchar(20) foreign key references Registration(EmailID)
+  )
+  drop table Roletable
+  select * from Roletable
+  insert into Roletable(Roletype,ApprovedStatus,EmailID)Values('Farmer','Yes','saiteja@gmail.com');
+  insert into Roletable(Roletype,ApprovedStatus,EmailID)Values('Admin','Yes','abhishek@gmail.com');
+  insert into Roletable(Roletype,ApprovedStatus,EmailID)Values('Bidder','Yes','Nitinborse@gmail.com');
+
+  CREATE TABLE Registration
+(
+	EmailID varchar(20) Primary key NOT NULL,
+	Password varchar(20) NOT NULL,
+	ConformPassword varchar(20) NOT NULL,
+	FullName varchar(20) NOT NULL,
+	ContactNo varchar(10) NOT NULL,
+	AddressLine1 text,
+	AddressLine2 text NOT NULL,
+	City varchar(20) NOT NULL,
+	State varchar(30) NOT NULL,
+	PinCode integer NOT NULL,
+	Aadhaar varchar(15),
+	PAN varchar(10),
+	TraderLicence integer,
+	Certificate varchar(10),
+	
+)
+drop table Registration
+select * from Registration
+insert into Registration (EmailID,Password,ConformPassword,FullName,ContactNo,AddressLine1,AddressLine2,City,State,PinCode,Aadhaar,
+PAN,TraderLicence,Certificate)Values('Nitinborse@gmail.com','Nitin@11','Nitin@11','Nitin Borse','9011439665','near to z p school','At post chaugaon','dhule','Maharashtra',424302,
+null,null,102938,null)
+insert into Registration (EmailID,Password,ConformPassword,FullName,ContactNo,AddressLine1,AddressLine2,City,State,PinCode,Aadhaar,
+PAN,TraderLicence,Certificate)Values('saiteja@gmail.com','sai@11','sai@11','Sai Teja','8011439665','near to English school','panchavati','nashik','Maharashtra',424302,
+null,null,102938,null)
+insert into Registration (EmailID,Password,ConformPassword,FullName,ContactNo,AddressLine1,AddressLine2,City,State,PinCode,Aadhaar,
+PAN,TraderLicence,Certificate)Values('abhishek@gmail.com','abhishek@11','abhishek@11','abhishek Raut','7011439665','near to Hanuman Mandir','panchavati','nashik','Maharashtra',424302,
+null,null,102938,null)
+
+
+CREATE TABLE BankDetails (
+	AccountNo varchar(20) NOT NULL primary key,
+	IFSCCode varchar(15) NOT NULL,
+	BankName varchar(20),
+	EmailID varchar(20) NOT NULL foreign key references Registration(EmailID)
+)
+drop table BankDetails
+select *from BankDetails
+insert into BankDetails(AccountNo,IFSCCode,BankName,EmailID)values('3431156268','SBIN005953','SBI','Nitinborse@gmail.com')
+insert into BankDetails(AccountNo,IFSCCode,BankName,EmailID)values('3932492983','ICICI005953','ICICI','saiteja@gmail.com')
+insert into BankDetails(AccountNo,IFSCCode,BankName,EmailID)values('6423399023','BKDN005953','BOB','abhishek@gmail.com')
+
+select *from BankDetails
+
+CREATE TABLE LandDetails (
+	Area text ,
+	Address text ,
+	PinCode integer ,
+	FarmerID int identity(500,1)  NOT NULL primary key,
+	EmailID varchar(20) NOT NULL foreign key references Registration(EmailID),
+ )
+  drop table LandDetails
+  select * from LandDetails
+insert into LandDetails(Area,Address,PinCode,EmailID)values('rajahmundry urban','srno-8-106,sithanagram panchayat',533287,
+'abhishek@gmail.com')
+insert into LandDetails(Area,Address,PinCode,EmailID)values('saisundhar urban','srno-3-14,dindori road',533217,
+'Nitinborse@gmail.com')
+insert into LandDetails(Area,Address,PinCode,EmailID)values('shanti urban','srno-4-16,Pune panchayat',342287,
+'saiteja@gmail.com')
+
+CREATE TABLE SellCrop (
+	CropName varchar(20) NOT NULL,
+	CropType varchar(20) NOT NULL,
+	FertilizerType varchar(20) NOT NULL,
+	Quantity integer NOT NULL,
+	SoilPHCertificate varchar(20),
+	FarmerID integer NOT NULL foreign key references LandDetails(FarmerID),
+	Status Varchar(10),
+	SellID integer identity(1000,1) NOT NULL primary key
+
+)
+drop table SellCrop
+select *from SellCrop
+sp_help SellCrop
+insert into SellCrop(CropName,CropType,FertilizerType,Quantity,SoilPHCertificate,FarmerID,Status)values(
+'maize','kharif','calcium nitrate',20,null,500,null)
+insert into SellCrop(CropName,CropType,FertilizerType,Quantity,SoilPHCertificate,FarmerID,Status)values(
+'wheat','rabi','potasium sulphate',40,null,502,null)
+insert into SellCrop(CropName,CropType,FertilizerType,Quantity,SoilPHCertificate,FarmerID,Status)values(
+'rice','kharif','sulphur nitrate',110,null,501,null)
+
+alter table Sell_Crop drop column Soil_PH_Certificate
+alter table Sell_Crop add Soil_PH_Certificate varchar(20)
+CREATE TABLE SoldHistory (
+	Date date NOT NULL primary key,
+	CropName varchar(20) NOT NULL,
+	Quantity integer NOT NULL,
+	MSP varchar(10) NOT NULL,
+	SoldPrice integer NOT NULL,
+	TotalPrice integer NOT NULL,
+	SellID integer NOT NULL foreign key references SellCrop(SellID)
+ 
+)
+drop table SoldHistory
+select * from SoldHistory
+insert into SoldHistory(Date,CropName ,Quantity,MSP,SoldPrice,TotalPrice,SellID)values
+('03-03-2022','maize',30,'1870',1680,5040,1001)
+insert into SoldHistory(Date,CropName ,Quantity,MSP,SoldPrice,TotalPrice,SellID)values
+('03-04-2022','rice',20,'1670',1480,2960,1002)
+insert into SoldHistory(Date,CropName ,Quantity,MSP,SoldPrice,TotalPrice,SellID)values
+('03-05-2022','wheat',40,'2870',1800,3200,1000)
+
+
+CREATE TABLE [CropTable] (
+	CropType varchar(20) NOT NULL,
+	CropName varchar(20) NOT NULL,
+	CropID integer identity(1000,1) NOT NULL primary key,
+	FarmerID integer NOT NULL foreign key references LandDetails(FarmerID), 
+)
+drop table CropTable
+select *from CropTable
+insert into CropTable(CropType,CropName,FarmerID)values
+('kharif','maize',500)
+insert into CropTable(CropType,CropName,FarmerID)values
+('rabi','wheat',501)
+insert into CropTable(CropType,CropName,FarmerID)values
+('kharif','rice',502)
+
+CREATE TABLE Bidding (
+	BasePrice integer NOT NULL,
+	CurrentBid integer NOT NULL,
+	BidAmmount integer NOT NULL,
+	BidderID integer identity(100,1) primary key,
+	BiddingDate date NOT NULL,
+	SellID integer NOT NULL foreign key references SellCrop(SellID)
+
+)
+drop table Bidding
+select *from Bidding
+insert into Bidding(BasePrice,CurrentBid,BidAmmount,BiddingDate,
+SellID)values(1000,2000,3000,'03-04-2022',1001)
+insert into Bidding(BasePrice,CurrentBid,BidAmmount,BiddingDate,
+SellID)values(2000,3000,4000,'03-02-2022',1002)
+insert into Bidding(BasePrice,CurrentBid,BidAmmount,BiddingDate,
+SellID)values(1490,2400,3230,'12-11-2021',1000)
+
+CREATE TABLE Insurance (
+	InsuranceCompany varchar(20) NOT NULL,
+	SumInsuredperhectar integer NOT NULL,
+	SharePremium integer NOT NULL,
+	PremiumAmmount integer NOT NULL,
+	CropName varchar(20) NOT NULL,
+	Area text NOT NULL,
+	SumInsured integer,
+	UserID integer NOT NULL foreign key references Roletable(UserID),
+	Season Varchar(20),
+	Year Varchar(5),
+	PolicyNo integer foreign key references ClaimInsurance(PolicyNo),
+	InsuranceID integer identity(10000,1) NOT NULL primary key
+	
+)
+drop table Insurance
+select *from Insurance
+insert into Insurance(InsuranceCompany,SumInsuredperhectar,SharePremium,
+PremiumAmmount,CropName,Area,SumInsured,UserID,Season,Year,PolicyNo)values
+('LIC',499,3000,10000,'Maize','rajamundry',50000,1,null,null,1234239)
+insert into Insurance(InsuranceCompany,SumInsuredperhectar,SharePremium,
+PremiumAmmount,CropName,Area,SumInsured,UserID,Season,Year,PolicyNo)values
+('EXIDE',599,3300,9000,'wheat','Panchavati',40000,2,null,null,1234240)
+insert into Insurance(InsuranceCompany,SumInsuredperhectar,SharePremium,
+PremiumAmmount,CropName,Area,SumInsured,UserID,Season,Year,PolicyNo)values
+('MAX LIFE',699,6000,20000,'rice','warangal',50000,3,null,null,1234241)
+
+
+CREATE TABLE ClaimInsurance (
+	PolicyNo integer identity(1234239,1) NOT NULL primary key,
+	NameofInsure varchar(10) NOT NULL,
+	DateOfLoss date NOT NULL,
+	CauseofLoss varchar(20) NOT NULL,
+	
+
+)
+select *from ClaimInsurance
+drop table ClaimInsurance
+insert into ClaimInsurance(NameofInsure,DateOfLoss,CauseofLoss
+)values('Nitin','02-12-2021','Much Rain')
+insert into ClaimInsurance(NameofInsure,DateOfLoss,CauseofLoss
+)values('Abhisek','02-11-2021','IrregularWatersupply')
+insert into ClaimInsurance(NameofInsure,DateOfLoss,CauseofLoss
+)values('Sai','11-12-2021','Soil Erosion')
+
